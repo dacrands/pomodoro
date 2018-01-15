@@ -1,12 +1,32 @@
 var seconds = 0;
 var minutes = 25;
+
+var shortSession = 5;
+var longSession = 25;
+
 var startButton = document.querySelector("#start");
 var stopButton = document.querySelector("#stop");
 var restartButton = document.querySelector("#restart");
+var increaseButton = document.querySelector("#increase");
+var decreaseButton = document.querySelector("#decrease");
+
 var begin;
 
 document.querySelector("#seconds").innerHTML = "0" + seconds;
 document.querySelector("#minutes").innerHTML = minutes;
+
+//
+function increase(){
+  longSession = parseInt(document.querySelector("#minutes").innerHTML) + 1;
+  document.querySelector("#minutes").innerHTML = longSession;
+  minutes = longSession;
+}
+
+function decrease(){
+  longSession = parseInt(document.querySelector("#minutes").innerHTML) - 1;
+  document.querySelector("#minutes").innerHTML = longSession;
+  minutes = longSession;
+}
 
 function appendTime(){
   seconds--;
@@ -25,6 +45,11 @@ function appendTime(){
     } else {
       document.querySelector("#minutes").innerHTML = minutes;
     }
+  }
+
+  if (seconds <= 0 && minutes <= 0) {
+    console.log("Should stop");
+    stop();
   }
 }
 
@@ -47,7 +72,7 @@ function restart(){
     begin = null;
   }
   seconds = 0;
-  minutes = 25;
+  minutes = longSession;
   document.querySelector("#seconds").innerHTML = "0" + seconds;
   document.querySelector("#minutes").innerHTML = minutes;
 }
@@ -55,3 +80,6 @@ function restart(){
 startButton.onclick = start;
 stopButton.onclick = stop;
 restartButton.onclick = restart;
+
+increaseButton.onclick = increase;
+decreaseButton.onclick = decrease;
