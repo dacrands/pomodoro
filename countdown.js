@@ -1,47 +1,71 @@
-var seconds = 0;
-var minutes = 25;
+var seconds = 0,
+    minutes = 25,
+    shortSession = 5,
+    longSession = 25,
+    session = longSession;
 
-var shortSession = 5;
-var longSession = 25;
+var startButton     = document.querySelector("#start"),
+     stopButton     = document.querySelector("#stop"),
+     restartButton  = document.querySelector("#restart"),
+     increaseButton = document.querySelector("#increase"),
+     decreaseButton = document.querySelector("#decrease"),
+     shortButton    = document.querySelector("#short"),
+     longButton     = document.querySelector("#long");
 
-var session = longSession;
-
-var startButton = document.querySelector("#start");
-var stopButton = document.querySelector("#stop");
-var restartButton = document.querySelector("#restart");
-var increaseButton = document.querySelector("#increase");
-var decreaseButton = document.querySelector("#decrease");
-var shortButton = document.querySelector("#short");
-var longButton = document.querySelector("#long");
-
+var shortSessionBool = false;
 var begin;
 
 document.querySelector("#seconds").innerHTML = "0" + seconds;
 document.querySelector("#minutes").innerHTML = minutes;
 
 function pickLongSession(){
+  shortSessionBool = false;
   session = longSession;
   minutes = session;
+  seconds = 0;
   document.querySelector("#minutes").innerHTML = session;
+  document.querySelector("#seconds").innerHTML = "0" + seconds;
 }
+
 function pickShortSession(){
+  shortSessionBool = true;
   session = shortSession;
   minutes = session;
+  seconds = 0;
   document.querySelector("#minutes").innerHTML = session;
+  document.querySelector("#seconds").innerHTML = "0" + seconds;
 }
 
-
-
 function increase(){
-  longSession = parseInt(document.querySelector("#minutes").innerHTML) + 1;
-  document.querySelector("#minutes").innerHTML = session;
-  minutes = session;
+    decreaseButton.disabled = false;
+    session = parseInt(document.querySelector("#minutes").innerHTML) + 1;
+    minutes = session;
+    seconds = 0;
+    document.querySelector("#minutes").innerHTML = session;
+    document.querySelector("#seconds").innerHTML = "0" + seconds;
+    if (!shortSessionBool) {
+      longSession = session;
+    } else {
+      shortSession = session;
+    }
 }
 
 function decrease(){
-  longSession = parseInt(document.querySelector("#minutes").innerHTML) - 1;
-  document.querySelector("#minutes").innerHTML = session;
-  minutes = session;
+  if (minutes > 1) {
+    session = parseInt(document.querySelector("#minutes").innerHTML) - 1;
+    minutes = session;
+    seconds = 0;
+    document.querySelector("#minutes").innerHTML = session;
+    document.querySelector("#seconds").innerHTML = "0" + seconds;
+  } else {
+    decreaseButton.disabled = true;
+  }
+
+  if (!shortSessionBool) {
+    longSession = session;
+  } else {
+    shortSession = session;
+  }
 }
 
 function appendTime(){
@@ -71,12 +95,18 @@ function appendTime(){
 
 function start(){
     if(!begin){
-        begin = setInterval(appendTime, 1000);
+      decreaseButton.disabled = true;
+      increaseButton.disabled = true;
+      startButton.disabled = true;
+      begin = setInterval(appendTime, 1000);
     }
 }
 
 function stop(){
   if (begin) {
+    decreaseButton.disabled = false;
+    increaseButton.disabled = false;
+    startButton.disabled = false;
     clearInterval(begin);
     begin = null;
   }
