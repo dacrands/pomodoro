@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  padding-top: 30vh;
+  padding-top: 20vh;
   height: 100vh;
   background: #003973;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
@@ -19,14 +19,22 @@ button:visited {
   outline: none;
 }
 
-
-
 .btn-group {
   display: inline-block;
   margin-top: 10px;
 }
 
+.change-time {
+  margin-bottom: 7.5em;
+}
+
 .change-time button {
   background: none;
   border: none;
+}
+
+.far-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: all !important;
 }

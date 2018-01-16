@@ -100,6 +100,8 @@ function appendTime(){
 
 function start(){
     if(!begin){
+      decreaseButton.classList.add("far-disabled");
+      increaseButton.classList.add("far-disabled");
       decreaseButton.disabled = true;
       increaseButton.disabled = true;
       startButton.disabled = true;
@@ -110,6 +112,8 @@ function start(){
 
 function stop(){
   if (begin) {
+    decreaseButton.classList.remove("far-disabled");
+    increaseButton.classList.remove("far-disabled");
     decreaseButton.disabled = false;
     increaseButton.disabled = false;
     startButton.disabled = false;
