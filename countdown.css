@@ -12,8 +12,21 @@ body h1 {
   font-size: 100px;
 }
 
+button:focus {
+  outline:0;
+}
+button:visited {
+  outline: none;
+}
+
+
+
 .btn-group {
   display: inline-block;
   margin-top: 10px;
+}
 
+.change-time button {
+  background: none;
+  border: none;
 }

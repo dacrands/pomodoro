@@ -14,12 +14,15 @@ var startButton     = document.querySelector("#start"),
 
 var shortSessionBool = false;
 var begin;
+stopButton.disabled = true;
 
 document.querySelector("#seconds").innerHTML = "0" + seconds;
 document.querySelector("#minutes").innerHTML = minutes;
 
 function pickLongSession(){
+  stop();
   shortSessionBool = false;
+  decreaseButton.disabled = false;
   session = longSession;
   minutes = session;
   seconds = 0;
@@ -28,7 +31,9 @@ function pickLongSession(){
 }
 
 function pickShortSession(){
+  stop();
   shortSessionBool = true;
+  decreaseButton.disabled = false;
   session = shortSession;
   minutes = session;
   seconds = 0;
@@ -51,7 +56,7 @@ function increase(){
 }
 
 function decrease(){
-  if (minutes > 1) {
+  if (session > 1) {
     session = parseInt(document.querySelector("#minutes").innerHTML) - 1;
     minutes = session;
     seconds = 0;
@@ -98,6 +103,7 @@ function start(){
       decreaseButton.disabled = true;
       increaseButton.disabled = true;
       startButton.disabled = true;
+      stopButton.disabled = false;
       begin = setInterval(appendTime, 1000);
     }
 }
@@ -107,6 +113,7 @@ function stop(){
     decreaseButton.disabled = false;
     increaseButton.disabled = false;
     startButton.disabled = false;
+    stopButton.disabled = true;
     clearInterval(begin);
     begin = null;
   }
@@ -117,6 +124,10 @@ function restart(){
     clearInterval(begin);
     begin = null;
   }
+  decreaseButton.disabled = false;
+  increaseButton.disabled = false;
+  stopButton.disabled = true;
+  startButton.disabled = false;
   seconds = 0;
   minutes = session;
   document.querySelector("#seconds").innerHTML = "0" + seconds;
