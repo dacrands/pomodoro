@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  padding-top: 20vh;
+  padding-top: 10vh;
   height: 100vh;
   background: #003973;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to bottom, #E5E5BE, #003973);  /* Chrome 10-25, Safari 5.1-6 */
@@ -8,8 +8,17 @@ body {
   background-repeat: no-repeat;
 }
 
-body h1 {
+.message {
+  margin-bottom: 5em;
+}
+
+
+h1 {
   font-size: 100px;
+}
+
+h2 {
+  font-size: 70px;
 }
 
 button:focus {
@@ -25,7 +34,7 @@ button:visited {
 }
 
 .change-time {
-  margin-bottom: 7.5em;
+  margin-bottom: 5em;
 }
 
 .change-time button {

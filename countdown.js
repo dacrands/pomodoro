@@ -11,6 +11,7 @@ var startButton     = document.querySelector("#start"),
      decreaseButton = document.querySelector("#decrease"),
      shortButton    = document.querySelector("#short"),
      longButton     = document.querySelector("#long");
+     message        = document.querySelector("#message")
 
 var shortSessionBool = false;
 var begin;
@@ -21,6 +22,7 @@ document.querySelector("#minutes").innerHTML = minutes;
 
 function pickLongSession(){
   stop();
+  message.innerHTML = "Focus on the proccess";
   shortSessionBool = false;
   decreaseButton.disabled = false;
   session = longSession;
@@ -32,6 +34,7 @@ function pickLongSession(){
 
 function pickShortSession(){
   stop();
+  message.innerHTML = "Focus on the breath";
   shortSessionBool = true;
   decreaseButton.disabled = false;
   session = shortSession;
@@ -76,7 +79,11 @@ function decrease(){
 function appendTime(){
   seconds--;
   if (seconds <= 0 && minutes <= 0) {
-    console.log("Should stop");
+    if (!shortSessionBool) {
+      message.innerHTML = "Take a break";
+    } else {
+      message.innerHTML = "Let's get to work";
+    }
     stop();
   }
 
@@ -107,6 +114,12 @@ function start(){
       startButton.disabled = true;
       stopButton.disabled = false;
       begin = setInterval(appendTime, 1000);
+    }
+
+    if(!shortSessionBool) {
+      message.innerHTML = "Focus on the proccess";
+    } else {
+      message.innerHTML = "Focus on the breath";
     }
 }
 
