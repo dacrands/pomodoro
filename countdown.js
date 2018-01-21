@@ -16,6 +16,7 @@ var startButton     = document.querySelector("#start"),
 var shortSessionBool = false;
 var begin;
 stopButton.disabled = true;
+longButton.disabled = true;
 
 document.querySelector("#seconds").innerHTML = "0" + seconds;
 document.querySelector("#minutes").innerHTML = minutes;
@@ -25,6 +26,8 @@ function pickLongSession(){
   message.innerHTML = "Focus on the proccess";
   shortSessionBool = false;
   decreaseButton.disabled = false;
+  longButton.disabled = true;
+  shortButton.disabled = false;
   session = longSession;
   minutes = session;
   seconds = 0;
@@ -37,6 +40,8 @@ function pickShortSession(){
   message.innerHTML = "Focus on the breath";
   shortSessionBool = true;
   decreaseButton.disabled = false;
+  longButton.disabled = false;
+  shortButton.disabled = true;
   session = shortSession;
   minutes = session;
   seconds = 0;
@@ -109,6 +114,8 @@ function start(){
     if(!begin){
       decreaseButton.classList.add("far-disabled");
       increaseButton.classList.add("far-disabled");
+      restartButton.classList.add("far-disabled");
+      restartButton.disabled = true;
       decreaseButton.disabled = true;
       increaseButton.disabled = true;
       startButton.disabled = true;
@@ -127,6 +134,8 @@ function stop(){
   if (begin) {
     decreaseButton.classList.remove("far-disabled");
     increaseButton.classList.remove("far-disabled");
+    restartButton.classList.add("far-disabled");
+    restartButton.disabled = true;
     decreaseButton.disabled = false;
     increaseButton.disabled = false;
     startButton.disabled = false;
@@ -143,8 +152,8 @@ function restart(){
   }
   decreaseButton.disabled = false;
   increaseButton.disabled = false;
-  stopButton.disabled = true;
   startButton.disabled = false;
+  stopButton.disabled = true;
   seconds = 0;
   minutes = session;
   document.querySelector("#seconds").innerHTML = "0" + seconds;
