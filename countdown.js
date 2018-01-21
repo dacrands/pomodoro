@@ -134,8 +134,8 @@ function stop(){
   if (begin) {
     decreaseButton.classList.remove("far-disabled");
     increaseButton.classList.remove("far-disabled");
-    restartButton.classList.add("far-disabled");
-    restartButton.disabled = true;
+    restartButton.classList.remove("far-disabled");
+    restartButton.disabled = false;
     decreaseButton.disabled = false;
     increaseButton.disabled = false;
     startButton.disabled = false;
