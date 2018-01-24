@@ -18,14 +18,22 @@ var begin;
 stopButton.disabled = true;
 longButton.disabled = true;
 
+var sound = new Howl({
+  src: ['audio/bubbles.mp3'],
+  loop: true,
+  volume: 0.5,
+});
+
 document.querySelector("#seconds").innerHTML = "0" + seconds;
 document.querySelector("#minutes").innerHTML = minutes;
 
 function pickLongSession(){
+  sound.stop();
   stop();
   message.innerHTML = "Focus on the proccess";
   shortSessionBool = false;
   decreaseButton.disabled = false;
+  startButton.disabled = false;
   longButton.disabled = true;
   shortButton.disabled = false;
   session = longSession;
@@ -36,10 +44,12 @@ function pickLongSession(){
 }
 
 function pickShortSession(){
+  sound.stop();
   stop();
   message.innerHTML = "Focus on the breath";
   shortSessionBool = true;
   decreaseButton.disabled = false;
+  startButton.disabled = false;
   longButton.disabled = false;
   shortButton.disabled = true;
   session = shortSession;
@@ -84,6 +94,7 @@ function decrease(){
 function appendTime(){
   seconds--;
   if (seconds <= 0 && minutes <= 0) {
+    sound.play();
     if (!shortSessionBool) {
       message.innerHTML = "Take a break";
     } else {
@@ -128,6 +139,7 @@ function start(){
     } else {
       message.innerHTML = "Focus on the breath";
     }
+
 }
 
 function stop(){
@@ -140,12 +152,16 @@ function stop(){
     increaseButton.disabled = false;
     startButton.disabled = false;
     stopButton.disabled = true;
+    if (seconds <= 0 && minutes <= 0) {
+      startButton.disabled = true;
+    }
     clearInterval(begin);
     begin = null;
   }
 }
 
 function restart(){
+  sound.stop();
   if (begin) {
     clearInterval(begin);
     begin = null;
